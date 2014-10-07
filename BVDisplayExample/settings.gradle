@@ -1,0 +1,2 @@
+include ':app', ':bazaarvoiceSDK'
+include ':bazaarAndroidSDK'
