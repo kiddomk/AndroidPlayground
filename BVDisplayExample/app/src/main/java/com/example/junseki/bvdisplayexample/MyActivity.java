@@ -29,7 +29,7 @@ public class MyActivity extends Activity implements OnBazaarResponse{
         mainText = (TextView) findViewById(R.id.mainText);
 
 //http://api.bazaarvoice.com/data/reviews.json?apiversion=5.4&limit=2&offset=0&passkey=q8ydkootljh2bmbcvvbo01zw9
-        BazaarRequest request = new BazaarRequest("api.bazaarvoice.com/data/reviews.json", "q8ydkootljh2bmbcvvbo01zw9", ApiVersion.FIVE_FOUR);
+        BazaarRequest request = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging", "kuy3zj9pr3n7i0wxajrzj04xo", ApiVersion.FIVE_FOUR);
         DisplayParams params = new DisplayParams();
         request.sendDisplayRequest(RequestType.PRODUCTS, params, this);
 
