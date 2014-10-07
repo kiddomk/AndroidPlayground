@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.junseki.myapplication3" >
+
+    <!-- minSdkVersion sets runtime compatibility ("will run on API level 4") -->
+    <!-- targetSdkVersion should be set to the latest version tested, to disable compatibility modes -->
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="19" />
+
+    <!-- Plot project -->
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- REQUIRED PERMISSIONS (for Urban Airship GCM) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" /> <!-- This app has permission to register with GCM and receive message -->
+
+
+    <!-- MODIFICATION REQUIRED - Replace "com.urbanairship.push.sample" with your package name -->
+    <permission
+        android:name="com.example.junseki.myapplication3.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.junseki.myapplication3.permission.C2D_MESSAGE" />
+    <!-- The two elements above ensure that only this application can receive the messages and registration result -->
+
+
+    <!-- MODIFICATION REQUIRED - Replace "com.urbanairship.push.sample" with your package name -->
+    <permission
+        android:name="com.example.junseki.myapplication3.permission.UA_DATA"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.junseki.myapplication3.permission.UA_DATA" />
+    <!-- The two elements above ensure that only this application has access to the Urban Airship provider -->
+
+
+    <!-- END Urban Airship Required Permissions -->
+
+
+    <!-- OPTIONAL Urban Airship Settings -->
+    <!-- REQUIRED FOR LOCATION -->
+    <!-- Use ACCESS_COARSE_LOCATION if GPS access is not necessary -->
+    <!-- uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" / -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- OPTIONAL - This permission is only necessary if your app has multiple processes -->
+    <!-- <uses-permission android:name="android.permission.BROADCAST_STICKY" /> -->
+
+
+    <!-- END OPTIONAL Urban Airship Settings -->
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MyActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Required for the library -->
+        <provider
+            android:name="com.urbanairship.UrbanAirshipProvider"
+            android:authorities="com.example.junseki.myapplication3.urbanairship.provider"
+            android:exported="true"
+            android:multiprocess="true"
+            android:permission="com.example.junseki.myapplication3.permission.UA_DATA" />
+
+        <!-- Required for Push -->
+        <service android:name="com.urbanairship.push.PushService" />
+
+        <receiver android:name="com.urbanairship.CoreReceiver" />
+        <receiver
+            android:name="com.urbanairship.push.GCMPushReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.example.junseki.myapplication3" />
+            </intent-filter>
+
+            <!-- Required for detecting when the application is upgraded so it can request a new GCM ID -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".IntentReceiver" />
+
+        <!-- Required for analytics -->
+        <service android:name="com.urbanairship.analytics.EventService" />
+
+        <!-- Required for Rich Push -->
+        <service android:name="com.urbanairship.richpush.RichPushUpdateService" />
+
+        <!-- Required for Actions -->
+        <activity android:name="com.urbanairship.actions.ActionActivity" />
+
+        <service android:name="com.urbanairship.actions.ActionService" />
+
+        <!-- Required for Landing Page Action -->
+        <activity
+            android:name="com.urbanairship.actions.LandingPageActivity"
+            android:exported="false"
+            android:parentActivityName=".MyActivity" >
+
+            <!-- MODIFICATION REQUIRED set or remove the parent activity -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.junseki.myapplication3.MyActivity" />
+
+            <intent-filter>
+                <action android:name="com.urbanairship.actions.SHOW_LANDING_PAGE_INTENT_ACTION" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Plot Project -->
+
+        <receiver android:name="com.plotprojects.retail.android.PlotBootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.plotprojects.retail.android.OpenUriReceiver"
+            android:exported="false" >
+            <intent-filter>
+
+                <!-- Replace [[App Package]] with your package name. -->
+                <action android:name="com.example.junseki.myapplication3.plot.OpenNotification" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.plotprojects.retail.android.PlotBackgroundService"
+            android:process=":PlotProcess" >
+
+            <!-- NOTE: Set the value to false to disable logging before releasing your app. -->
+            <meta-data
+                android:name="debug"
+                android:value="true" />
+        </service>
+
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="8cea57cad8f39f3960f3eb8efd9468cb9a808dfe" />
+
+        <activity
+            android:name=".DisplayMessageActivity"
+            android:label="@string/title_activity_display_message"
+            android:parentActivityName="com.example.junseki.myapplication3.MyActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.junseki.myapplication3.MyActivity" />
+        </activity>
+    </application>
+
+</manifest>

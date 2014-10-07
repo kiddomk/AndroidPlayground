@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Application3</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_message">text field</string>
+    <string name="button_send">Send</string>
+    <string name="title_activity_display_message">My Message</string>
+
+    <!-- Font paths -->
+    <string name="font_black">fonts/Roboto-Black.ttf</string>
+    <string name="font_black_italic">fonts/Roboto-BlackItalic.ttf</string>
+    <string name="font_bold">fonts/Roboto-Bold.ttf</string>
+    <string name="font_bold_italic">fonts/Roboto-BoldItalic.ttf</string>
+    <string name="font_italic">fonts/Roboto-Italic.ttf</string>
+    <string name="font_light">fonts/Roboto-Light.ttf</string>
+    <string name="font_light_italic">fonts/Roboto-LightItalic.ttf</string>
+    <string name="font_medium">fonts/Roboto-Medium.ttf</string>
+    <string name="font_medium_italic">fonts/Roboto-MediumItalic.ttf</string>
+    <string name="font_regular">fonts/Roboto-Regular.ttf</string>
+    <string name="font_thin">fonts/Roboto-Thin.ttf</string>
+    <string name="font_thin_italic">fonts/Roboto-ThinItalic.ttf</string>
+
+</resources>
